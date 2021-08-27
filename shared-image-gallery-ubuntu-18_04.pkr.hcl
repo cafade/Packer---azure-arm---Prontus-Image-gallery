@@ -1,3 +1,5 @@
+# Prontus downloard links: https://www.prontus.cl/cms/releases/descargas - https://www.prontus.cl/packages/prontus.zip
+
 ## authentication variables ##
 # variable "client-id" { description = "<CLIENT_iD aka appId>" }
 # variable "client-secret" { description = "CLIENT_SECRET aka password" }
