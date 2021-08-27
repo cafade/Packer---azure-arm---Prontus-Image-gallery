@@ -11,18 +11,18 @@ variable "image-publisher" { default = "Canonical" }
 variable "image-sku" { default = "18.04-LTS" }
 
 ## managed image variables ##
-variable "managed-image-name" { default = "TargetUbuntuProntusMaster" }
+variable "managed-image-name" { default = "UbuntuProntusMaster" }
 variable "managed-image-rg" { default = "MasterVMImages" }
 
 ## share image gallery variables ##
-variable "image-name" { default = "TargetUbuntuProntusMaster" }
+variable "image-name" { default = "UbuntuProntusMaster" }
 variable "gallery-name" { default = "MasterSharedImageGallery" }
-variable "image-version" { default = "1.0.1" }
+variable "image-version" { default = "1.0.0" }
 variable "storage-account-type" { default = "Standard_LRS" }
 
 ## VM variables ##
 variable "os-type" { default = "Linux" }
-variable "location" { default = "UK West" }
+variable "location" { default = "West Central US" }
 variable "vm-size" { default = "Standard_A4_v2" }
 
 source "azure-arm" "Ubuntu-18-04" {
@@ -38,7 +38,7 @@ source "azure-arm" "Ubuntu-18-04" {
       gallery_name = "${var.gallery-name}"
       image_name = "${var.image-name}"
       image_version = "${var.image-version}"
-      replication_regions = ["UK West", "UK South", "West Central US"]
+      replication_regions = ["West Central US"]
       storage_account_type = "${var.storage-account-type}"
   }
 
