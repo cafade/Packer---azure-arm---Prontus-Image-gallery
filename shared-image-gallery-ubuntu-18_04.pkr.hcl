@@ -30,16 +30,16 @@ source "azure-arm" "Ubuntu-18-04" {
     dept = "engineering"
     task = "image deployment"
   }
-#  client_id                         = "${var.client-id}"
-#  client_secret                     = "${var.client-secret}"
+  #  client_id                         = "${var.client-id}"
+  #  client_secret                     = "${var.client-secret}"
   shared_image_gallery_destination {
-      subscription = "${var.subscription-id}"
-      resource_group = "${var.managed-image-rg}"
-      gallery_name = "${var.gallery-name}"
-      image_name = "${var.image-name}"
-      image_version = "${var.image-version}"
-      replication_regions = ["West Central US"]
-      storage_account_type = "${var.storage-account-type}"
+    subscription         = "${var.subscription-id}"
+    resource_group       = "${var.managed-image-rg}"
+    gallery_name         = "${var.gallery-name}"
+    image_name           = "${var.image-name}"
+    image_version        = "${var.image-version}"
+    replication_regions  = ["West Central US"]
+    storage_account_type = "${var.storage-account-type}"
   }
 
   managed_image_name                = "${var.managed-image-name}"
@@ -65,8 +65,8 @@ build {
   }
 
   provisioner "file" {
-    source = "${path.cwd}/scripts"
-    destination = "/tmp"
+    source       = "${path.cwd}/scripts"
+    destination  = "/tmp"
     pause_before = "4s"
   }
 
@@ -75,13 +75,13 @@ build {
     inline = ["cd /tmp/scripts",
               "./install_prontus_debian.sh"]
     inline_shebang = "/bin/sh -x"
-    pause_before = "4s"
+    pause_before   = "4s"
   }
 
   provisioner "shell" {
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
-    inline = ["/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"]
-    inline_shebang = "/bin/sh -x"
-    pause_before = "4s"
+    inline          = ["/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"]
+    inline_shebang  = "/bin/sh -x"
+    pause_before    = "4s"
   }
 }
