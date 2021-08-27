@@ -22,7 +22,7 @@ variable "storage-account-type" { default = "Standard_LRS" }
 
 ## VM variables ##
 variable "os-type" { default = "Linux" }
-variable "location" { default = "West Central US" }
+variable "location" { default = "Central US" }
 variable "vm-size" { default = "Standard_A4_v2" }
 
 source "azure-arm" "Ubuntu-18-04" {
@@ -38,7 +38,7 @@ source "azure-arm" "Ubuntu-18-04" {
     gallery_name         = "${var.gallery-name}"
     image_name           = "${var.image-name}"
     image_version        = "${var.image-version}"
-    replication_regions  = ["West Central US"]
+    replication_regions  = ["Central US"]
     storage_account_type = "${var.storage-account-type}"
   }
 
