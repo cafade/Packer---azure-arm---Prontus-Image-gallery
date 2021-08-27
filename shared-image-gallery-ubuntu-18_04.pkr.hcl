@@ -59,8 +59,27 @@ build {
     inline = ["echo provisioning Prontus master VM image -- image: ${var.image-offer} version: ${var.image-sku} VM size: ${var.vm-size}",
               "apt-get update",
               "DEBIAN_FRONTEND=noninteractive apt-get upgrade -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef -y --allow-downgrades --allow-remove-essential --allow-change-held-packages"]
-    script = "${path.cwd}/scripts/install_prontus_debian.sh"
+    inline_shebang = "/bin/sh -x"
+  }
+
+  provisioner "file" {
+    source = "${path.cwd}/scripts"
+    destination = "/tmp"
+    pause_before = "4s"
+  }
+
+  provisioner "shell" {
+    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
+    inline = ["cd /tmp/scripts",
+              "./install_prontus_debian.sh"]
+    inline_shebang = "/bin/sh -x"
+    pause_before = "4s"
+  }
+
+  provisioner "shell" {
+    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
     inline = ["/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"]
     inline_shebang = "/bin/sh -x"
+    pause_before = "4s"
   }
 }
