@@ -58,18 +58,9 @@ build {
     execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
     inline = ["echo provisioning Prontus master VM image -- image: ${var.image-offer} version: ${var.image-sku} VM size: ${var.vm-size}",
               "apt-get update",
-              "DEBIAN_FRONTEND=noninteractive apt-get upgrade -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef -y --allow-downgrades --allow-remove-essential --allow-change-held-packages",
-              "apt-get install apache2",
-              "apt-get install libapache2-mod-php5",
-              "apt-get install libapache2-mod-perl2",
-              "apt-get install perl-doc",
-              "apt-get install mysql-server",
-              "apt-get install libmysqlclient-dev",
-              "apt-get install sendmail",
-              "apt-get install libgd2-xpm-dev",
-              "apt-get install libungif",
-              "perl -MCPAN -e 'install CGI::Carp; install DBI; install DBD::mysql; install HTTP::Date; install LWP; LockFile::simple; install Mail::Sender; install GD; install XML::Parser; install Net::DNS; install JSON; install URI::Escape'",
-              "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"]
+              "DEBIAN_FRONTEND=noninteractive apt-get upgrade -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef -y --allow-downgrades --allow-remove-essential --allow-change-held-packages"]
+    script = "${path.cwd}/scripts/install_prontus_debian.sh"
+    inline = ["/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"]
     inline_shebang = "/bin/sh -x"
   }
 }
