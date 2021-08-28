@@ -38,7 +38,7 @@ source "azure-arm" "Ubuntu-18-04" {
     gallery_name         = "${var.gallery-name}"
     image_name           = "${var.image-name}"
     image_version        = "${var.image-version}"
-    replication_regions  = ["Central US"]
+#    replication_regions  = ["Central US"]
     storage_account_type = "${var.storage-account-type}"
   }
 
